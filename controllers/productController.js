@@ -2,7 +2,6 @@
 
 // Récupère le modèle products
 var Product = require('../models/product');
-var User = require('../models/user');
 
 
 
