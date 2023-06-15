@@ -79,12 +79,12 @@ app.use(errorController.get422);
 // gestion des erreurs 
 app.use(errorController.logErrors);
 
-const PORT = process.env.PORT;
-const MONGODB = process.env.MONGODB ;
+const PORT = process.env.PORT || 3000;
+
 
 // Connexion à la base de données
 mongoose
-  .connect(MONGODB)
+  .connect(process.env.MONGODB)
   .then(() => {
     console.log('Database connection established')
     app.listen(3000, () => {
