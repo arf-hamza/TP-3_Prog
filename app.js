@@ -4,6 +4,8 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config();
 
 //Authentification par JWT
 const jwt = require('jsonwebtoken');
@@ -87,7 +89,7 @@ mongoose
   .connect(process.env.MONGODB)
   .then(() => {
     console.log('Database connection established')
-    app.listen(3000, () => {
+    app.listen(PORT, () => {
       console.log('The server is listening on the port', PORT);
     });
   })
