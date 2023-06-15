@@ -1,14 +1,11 @@
 "use strict";
 
-const path = require('path');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
 
-//Authentification par JWT
-const jwt = require('jsonwebtoken');
 
 app.use((req, res, next) => {
    res.setHeader('Access-Control-Allow-Origin', '*');
@@ -39,9 +36,6 @@ const cartRoutes = require('./routes/routeCart');
 // Importe le controller des erreurs
 const errorController = require('./controllers/errorController');
 
-
-// Déclarer le dossier public qui contient les fichiers statiques
-app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Déclaration d'un parser pour analyser "le corps (body)" d'une requête entrante avec POST  
