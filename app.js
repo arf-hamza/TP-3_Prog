@@ -31,12 +31,8 @@ const searchRoutes = require('./routes/routeSearch');
 const cartRoutes = require('./routes/routeCart');
 
 
-
-
 // Importe le controller des erreurs
 const errorController = require('./controllers/errorController');
-
-
 
 // Déclaration d'un parser pour analyser "le corps (body)" d'une requête entrante avec POST  
 app.use(express.urlencoded({

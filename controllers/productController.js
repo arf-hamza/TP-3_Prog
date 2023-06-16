@@ -55,9 +55,6 @@ exports.getProduct = function (req, res) {
 };
 
 
-
-
-
 // POST product
 
 exports.addProduct = function (req, res) {
@@ -94,7 +91,6 @@ exports.addProduct = function (req, res) {
       res.status(500).send(error);
     });
 };
-
 
 
 // DELETE product
