@@ -1,16 +1,13 @@
 "use strict";
 
 // Récupère le modèle products
-var Product = require('../models/product');
-
-
+var Product = require("../models/product");
 
 // GET products
 exports.getProducts = function (req, res) {
   Product.find({})
-    .then(products => {
-      const updatedProducts = products.map(product => {
-
+    .then((products) => {
+      const updatedProducts = products.map((product) => {
         const imageUrls = product.imageUrl;
 
         // Ajouter les URL d'image au produit
@@ -22,12 +19,13 @@ exports.getProducts = function (req, res) {
       // Retourner les produits mis à jour
       res.status(200).json(updatedProducts);
     })
-    .catch(error => {
-      console.error('An error occurred while retrieving products :', error);
-      res.status(500).json({ error: 'An error occurred while retrieving products' });
+    .catch((error) => {
+      console.error("An error occurred while retrieving products :", error);
+      res
+        .status(500)
+        .json({ error: "An error occurred while retrieving products" });
     });
 };
-
 
 // GET product by id
 
@@ -35,9 +33,9 @@ exports.getProduct = function (req, res) {
   const productId = req.params.id;
 
   Product.findById(productId)
-    .then(product => {
+    .then((product) => {
       if (!product) {
-        res.status(404).json({ error: 'Product not found' });
+        res.status(404).json({ error: "Product not found" });
         return;
       }
 
@@ -48,12 +46,13 @@ exports.getProduct = function (req, res) {
 
       res.status(200).json(product);
     })
-    .catch(error => {
-      console.error('Error retrieving product:', error);
-      res.status(500).json({ error: 'An error occurred while retrieving the product' });
+    .catch((error) => {
+      console.error("Error retrieving product:", error);
+      res
+        .status(500)
+        .json({ error: "An error occurred while retrieving the product" });
     });
 };
-
 
 // POST product
 
@@ -71,8 +70,9 @@ exports.addProduct = function (req, res) {
     categoryId,
   });
 
-  product.save()
-    .then(savedProduct => {
+  product
+    .save()
+    .then((savedProduct) => {
       const result = {
         _id: savedProduct._id,
         userId: savedProduct.userId,
@@ -87,31 +87,29 @@ exports.addProduct = function (req, res) {
 
       res.status(201).json(result);
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).send(error);
     });
 };
-
 
 // DELETE product
 
 exports.deleteProduct = function (req, res) {
   Product.findByIdAndRemove(req.params.id)
-      .then(product => {
-          if (!product) {
-              // Le produit n'a pas été trouvé, retourner une réponse d'erreur
-              res.status(404).json({ error: "Product not found" });
-              return;
-          }
+    .then((product) => {
+      if (!product) {
+        // Le produit n'a pas été trouvé, retourner une réponse d'erreur
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
 
-          // Produit supprimé avec succès
-          res.status(204).send();
-      })
-      .catch(error => {
-          res.status(500).send(error);
-      });
+      // Produit supprimé avec succès
+      res.status(204).send();
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
 };
-
 
 // GET /products/user/:userId
 
@@ -119,11 +117,13 @@ exports.getProductsByUserId = function (req, res) {
   const userId = req.params.userId;
 
   Product.find({ userId: userId })
-    .then(products => {
+    .then((products) => {
       console.log(products);
       res.status(200).json({ products: products });
     })
-    .catch(error => { 
-      res.status(500).json({ error: 'An error occurred while retrieving products' });
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ error: "An error occurred while retrieving products" });
     });
 };

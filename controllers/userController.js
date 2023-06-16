@@ -5,7 +5,7 @@ const User = require("../models/user");
 
 // GET Users
 exports.getUsers = function (req, res) {
-  User.find({}, '-email -password') // Exclure les champs d'email et de mot de passe
+  User.find({}, "-email -password") // Exclure les champs d'email et de mot de passe
     .then((users) => {
       res.status(200).json(users);
     })
@@ -13,7 +13,6 @@ exports.getUsers = function (req, res) {
       res.status(500).json({ error: error.message });
     });
 };
-
 
 // GET User by id
 
@@ -40,16 +39,16 @@ exports.getUser = function (req, res) {
 
 exports.getProfil = function (req, res) {
   const user = req.user.userId;
-    if (!user) {
+  if (!user) {
     res.status(404).send();
     return;
   }
   User.findById(user)
     .then((user) => {
-        if (!user) {
-      res.status(404).json({ error: "User not found" });
-      return;
-    }
+      if (!user) {
+        res.status(404).json({ error: "User not found" });
+        return;
+      }
       res.status(200).json({ user: user });
     })
     .catch((error) => {
@@ -65,7 +64,9 @@ exports.putUser = function (req, res) {
 
   if (userId !== loggedInUserId) {
     // L'utilisateur connecté ne correspond pas à l'utilisateur à modifier
-    res.status(403).json({ error: "You are not authorized to modify this user" });
+    res
+      .status(403)
+      .json({ error: "You are not authorized to modify this user" });
     return;
   }
 
@@ -78,7 +79,11 @@ exports.putUser = function (req, res) {
 
       // Vérifier si le champ isAdmin est modifié
       if (req.body.isAdmin !== undefined && req.body.isAdmin !== user.isAdmin) {
-        res.status(403).json({ error: "You are not authorized to modify the isAdmin field" });
+        res
+          .status(403)
+          .json({
+            error: "You are not authorized to modify the isAdmin field",
+          });
         return;
       }
 
@@ -87,7 +92,8 @@ exports.putUser = function (req, res) {
       user.lastname = req.body.lastname || user.lastname;
       user.email = req.body.email || user.email;
 
-      user.save()
+      user
+        .save()
         .then((updatedUser) => {
           res.status(201).json(updatedUser);
         })
@@ -106,7 +112,9 @@ exports.deleteUser = function (req, res) {
   const userId = req.params.id; // Récupérer l'ID de l'utilisateur à supprimer
 
   if (loggedInUserId !== userId) {
-    return res.status(401).json({ error: "You are not authorized to delete this user." });
+    return res
+      .status(401)
+      .json({ error: "You are not authorized to delete this user." });
   }
 
   User.findByIdAndRemove(userId)
@@ -120,5 +128,3 @@ exports.deleteUser = function (req, res) {
       res.status(500).json({ error: error.message });
     });
 };
-
-
