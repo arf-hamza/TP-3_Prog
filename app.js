@@ -25,7 +25,7 @@ app.use(express.json());
 const userRoutes = require("./routes/routeUser");
 const productRoutes = require("./routes/routeProduct");
 const categoryRoutes = require("./routes/routeCategory");
-const authRoutes = require("./routes/routeAuth");
+//const authRoutes = require("./routes/routeAuth");
 const searchRoutes = require("./routes/routeSearch");
 const cartRoutes = require("./routes/routeCart");
 
@@ -49,7 +49,7 @@ app.use(productRoutes);
 app.use(userRoutes);
 
 // utilistation route pour authentification
-app.use(authRoutes);
+//app.use(authRoutes);
 
 // utilistation route pour search
 app.use(searchRoutes);
