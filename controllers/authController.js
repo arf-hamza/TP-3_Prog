@@ -1,4 +1,4 @@
-/* "use strict";
+"use strict";
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -85,4 +85,3 @@ exports.signUp = (req, res, next) => {
       next(err);
     });
 };
- */

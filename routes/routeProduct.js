@@ -2,10 +2,10 @@
 
 const express = require("express");
 const router = express.Router();
-const productsController = require("../controllers/productController"); // route /produits
-const isAuth = require("../middleware/is-auth");
+const productsController = require("../controllers/productController"); 
+
 // isAuth est un middleware qui vérifie si l'utilisateur est authentifié
-//const isAuth = require("../middleware/is-auth");
+const isAuth = require("../middleware/is-auth");
 
 // GET /produits
 
@@ -21,10 +21,10 @@ router.get("/products/:id", productsController.getProduct);
 
 // POST /produits
 
-router.post("/products"/*, isAuth */, productsController.addProduct);
+router.post("/products", isAuth , productsController.addProduct);
 
 // DELETE /produits/:id
 
-router.delete("/products/:id", productsController.deleteProduct);
+router.delete("/products/:id", isAuth, productsController.deleteProduct);
 
 module.exports = router;
